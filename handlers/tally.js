@@ -82,7 +82,9 @@ module.exports = {
             .map(x => `${x.emoji}  ${(x.percentMax).toFixed(2)}%`)
             .join('\n')
 
-        await interaction.editReply(`
+        await interaction.editReply({
+            embeds: message.embeds,
+            content: `
 **Cred-weighted Tally** with decay of ${config.DECAY}
 
 **Message Link:** ${interaction.options.getString(commandConstants.TALLY_PARAM)}
@@ -100,6 +102,6 @@ ${percentMaxResults}
   { maximumFractionDigits: 2 }
 )})
 ${absoluteResults}
-`.trim());
+`.trim()});
     }
 }

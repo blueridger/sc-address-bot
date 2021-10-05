@@ -5,6 +5,6 @@ module.exports = {
     // 1 means only consider current week
     DECAY: 0,
     GUILD_IDS: {
-        "798975165342023700": "sourcecred/cred/gh-pages"
+        "453243919774253079": "sourcecred/cred/gh-pages"
     },
 }
