@@ -1,0 +1,27 @@
+{
+  "name": "discord-cred-voting-bot",
+  "version": "1.0.0",
+  "description": "SourceCred-weighted tallying on discord",
+  "main": "index.js",
+  "dependencies": {
+    "@discordjs/rest": "0.1.0-canary.0",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.1.0",
+    "sourcecred": "^0.9.3"
+  },
+  "scripts": {
+    "setup": "node ./createCommands.js",
+    "start": "node ./createCommands.js && node ./startClient.js",
+    "serve": "node ./startClient.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blueridger/discord-cred-voting-bot.git"
+  },
+  "author": "blueridger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blueridger/discord-cred-voting-bot/issues"
+  },
+  "homepage": "https://github.com/blueridger/discord-cred-voting-bot#readme"
+}
