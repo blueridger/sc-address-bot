@@ -16,7 +16,11 @@ const commandTally = new SlashCommandBuilder()
     .addStringOption(option =>
         option.setName(commandConstants.TALLY_PARAM)
             .setDescription('The link to the message that should be tallied.')
-            .setRequired(true));
+            .setRequired(true))
+    .addNumberOption(option =>
+        option.setName(commandConstants.TALLY_PARAM_DECAY)
+            .setDescription('A decay factor between 0 and 1 where 0 is no decay.')
+            .setRequired(false));
 
 const commands = [commandTally];
 

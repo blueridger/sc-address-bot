@@ -6,6 +6,7 @@ const commandConstants = require("../commandConstants.js")
 module.exports = {
     tallyHandler: async (interaction) => {
         await interaction.deferReply();
+        const decay = interaction.options.getNumber(commandConstants.TALLY_PARAM_DECAY) || config.DECAY;
         const [,channelId,messageId] = interaction.options.getString(commandConstants.TALLY_PARAM).match(/https\:\/\/discord\.com\/channels\/[0-9]*\/([0-9]*)\/([0-9]*)/)
 
         const message = await (await (await interaction.guild.channels.fetch(channelId)).messages.fetch(messageId)).fetch()
@@ -32,11 +33,14 @@ module.exports = {
             ).filter(p => p);
 
             const scores = participants.map(
-                p => p.cred
+                p => p.credPerInterval.reduce(
+                    (a, b) => a * (1 - decay) + b,
+                    0
+                )
             );
 
             const decayedTotalScore = scores.reduce(
-                (acc, cred) => acc * (1 - config.DECAY) + cred,
+                (a, b) => a + b,
                 0
             );
             return {
@@ -55,7 +59,10 @@ module.exports = {
         const maxScore = Array.from(new Set(
             reactionsWithData.map(x => x.participants).flat()
         )).reduce(
-            (a,b) => a + b.cred,
+            (a,b) => a + b.credPerInterval.reduce(
+                (a, b) => a * (1 - decay) + b,
+                0
+            ),
             0
         )
         reactionsWithData = reactionsWithData.map(x => ({
@@ -85,7 +92,7 @@ module.exports = {
         await interaction.editReply({
             embeds: message.embeds,
             content: `
-**Cred-weighted Tally** with decay of ${config.DECAY}
+**Cred-weighted Tally** with decay of ${decay}
 
 **Message Link:** ${interaction.options.getString(commandConstants.TALLY_PARAM)}
 **Message Content:**

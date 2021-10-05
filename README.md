@@ -1,5 +1,5 @@
 # Usage
-Use the `/tally` command and pass a link to the message you want to tally.
+Use the `/tally` command and pass the `messagelink` to the message you want to tally, and optionally a custom `decay` factor between 0 and 1.
 ```
 /tally https://discord.com/channels/798975165342023700/798975167971196981/894988234331947028
 ```

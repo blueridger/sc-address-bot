@@ -1,1 +1,1 @@
-run = "npm run serve"
+run = "npm run start"
