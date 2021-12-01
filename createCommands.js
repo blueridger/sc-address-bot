@@ -10,19 +10,15 @@ const env = process.env;
 const BOT_SECRET = env.BOT_SECRET;
 const CLIENT_ID = env.CLIENT_ID;
 
-const commandTally = new SlashCommandBuilder()
-    .setName(commandConstants.TALLY_NAME)
-    .setDescription('Tallies cred-weighted voting on the provided message.')
+const commandSetAddress = new SlashCommandBuilder()
+    .setName(commandConstants.SET_ADDRESS_NAME)
+    .setDescription('Sets your wallet payout address.')
     .addStringOption(option =>
-        option.setName(commandConstants.TALLY_PARAM)
-            .setDescription('The link to the message that should be tallied.')
-            .setRequired(true))
-    .addNumberOption(option =>
-        option.setName(commandConstants.TALLY_PARAM_DECAY)
-            .setDescription('A decay factor between 0 and 1 where 0 is no decay.')
-            .setRequired(false));
+        option.setName(commandConstants.SET_ADDRESS_PARAM)
+            .setDescription('Your wallet address.')
+            .setRequired(true));
 
-const commands = [commandTally];
+const commands = [commandSetAddress];
 
 const rest = new REST({ version: '9' }).setToken(process.env.BOT_SECRET);
 

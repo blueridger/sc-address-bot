@@ -7,7 +7,7 @@ require('dotenv').config();
 const env = process.env;
 const BOT_SECRET = env.BOT_SECRET;
 
-const {tallyHandler} = require("./handlers/tally.js")
+const {setAddressHandler} = require("./handlers/setAddress.js")
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -15,8 +15,8 @@ client.on('ready', () => {
 
 client.on('interactionCreate', async interaction => {
   if (!interaction.isCommand()) return;
-  if (interaction.commandName === commandConstants.TALLY_NAME)
-    tallyHandler(interaction)
+  if (interaction.commandName === commandConstants.SET_ADDRESS_NAME)
+    setAddressHandler(interaction)
 });
 
 client.login(BOT_SECRET);
