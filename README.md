@@ -1,4 +1,8 @@
 # Usage
+This command will save the payout address to the SourceCred account corresponding to the user of the command. The payout address is saved directly to the configured instance's Ledger.
+```
+/setpayoutaddress 0xF6mSADFk42fdDdsE42FKEfdlkz6
+```
 
 # Installation
 This bot should work self-hosted (.env) or on repl.it (repl secrets)

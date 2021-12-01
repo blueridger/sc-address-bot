@@ -8,15 +8,21 @@ module.exports = {
         await interaction.deferReply();
         const address = interaction.options.getString(commandConstants.SET_ADDRESS_PARAM)
         const config = configs.GUILD_IDS[interaction.guildId]
+        try {
+            const ledgerManager = new sc.ledger.manager.LedgerManager({storage: new sc.ledger.storage.GithubStorage({apiToken: process.env.GITHUB_SECRET, repo: config.repo, branch: config.branch})})
+            await ledgerManager.reloadLedger()
+            const discordAddress = getDiscordAddressFromId(interaction.member.user.id, false)
+            const account = ledgerManager.ledger.accountByAddress(discordAddress)
+            const uuid = account.identity.id
+            ledgerManager.ledger.setPayoutAddress(uuid, address, config.chainId, config.tokenAddress)
+            const result = await ledgerManager.persist()
+            if (result.error) throw result.error;
 
-        const ledgerManager = new sc.ledger.manager.LedgerManager({storage: new sc.ledger.storage.GithubStorage({apiToken: GITHUB_SECRET, repo: config[0], branch: config[1]})})
-        await ledgerManager.reloadLedger()
-        const discordAddress = getDiscordAddressFromId(interaction.member.user.id, false)
-        const uuid = ledgerManager.ledger.accountByAddress(discordAddress).identity.id
-        ledgerManager.ledger.setPayoutAddress(uuid, address, config[2], config[3])
-
-        await interaction.editReply({
-            //embeds: message.embeds,
-            content: `Successfully set payout address to ${address} for chainId ${config[2]} and tokenAddress ${config[3]}`});
+            await interaction.editReply({
+                content: `Success!\n**New payout address:** ${address}\n**Account:** ${account.identity.name}\n**Chain Id:** ${config.chainId}\n**Token Address:** ${config.tokenAddress}`});
+        } catch (e) {
+            await interaction.editReply({
+                    content: `Failed with message: ` + e});
+        }
     }
 }
