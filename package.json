@@ -9,12 +9,13 @@
     "discord-api-types": "^0.23.1",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "sourcecred": "^0.9.3"
+    "sourcecred": "^0.10.2"
   },
   "scripts": {
     "setup": "node ./createCommands.js",
     "start": "node ./createCommands.js && node ./startClient.js",
-    "serve": "node ./startClient.js"
+    "serve": "node ./startClient.js",
+    "clean": "rm -rf node_modules"
   },
   "repository": {
     "type": "git",

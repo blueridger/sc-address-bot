@@ -18,7 +18,15 @@ const commandSetAddress = new SlashCommandBuilder()
             .setDescription('Your wallet address.')
             .setRequired(true));
 
-const commands = [commandSetAddress];
+const commandActivate = new SlashCommandBuilder()
+    .setName(commandConstants.ACTIVATE_NAME)
+    .setDescription('Activates you for payouts.');
+
+const commandDeactivate = new SlashCommandBuilder()
+    .setName(commandConstants.DEACTIVATE_NAME)
+    .setDescription('Deactivates you for payouts.');
+
+const commands = [commandSetAddress, commandActivate, commandDeactivate];
 
 const rest = new REST({ version: '9' }).setToken(process.env.BOT_SECRET);
 
