@@ -9,7 +9,7 @@ module.exports = {
         const address = interaction.options.getString(commandConstants.SET_ADDRESS_PARAM)
         const config = configs.GUILD_IDS[interaction.guildId]
         try {
-            const ledgerManager = new sc.ledger.manager.LedgerManager({storage: new sc.ledger.storage.GithubStorage({apiToken: process.env.GITHUB_SECRET, repo: config.repo, branch: config.branch})})
+            const ledgerManager = new sc.ledger.manager.LedgerManager({storage: new sc.ledger.storage.WritableGithubStorage({apiToken: process.env.GITHUB_SECRET, repo: config.repo, branch: config.branch})})
             await ledgerManager.reloadLedger()
             const discordAddress = getDiscordAddressFromId(interaction.member.user.id, false)
             const account = ledgerManager.ledger.accountByAddress(discordAddress)

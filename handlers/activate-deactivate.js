@@ -13,7 +13,7 @@ module.exports = {
             const discordAddress = getDiscordAddressFromId(interaction.member.user.id, false)
 
             await ledgerManager.reloadLedger()
-            
+
             const account = ledgerManager.ledger.accountByAddress(discordAddress)
             const uuid = account.identity.id
             const oldLength = ledgerManager.ledger.eventLog().length
@@ -23,7 +23,7 @@ module.exports = {
             if (result.error) throw result.error;
 
             await interaction.editReply({
-                content: `Successfully activated ${account.identity.name}.`});
+                content: `Successfully activated ${account.identity.name}. Note, you might start receiving airdrops automatically.`});
         } catch (e) {
             await interaction.editReply({
                     content: `Failed with message: ` + e});
