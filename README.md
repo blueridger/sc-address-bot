@@ -4,6 +4,12 @@ This command will save the payout address to the SourceCred account correspondin
 /setpayoutaddress 0xF6mSADFk42fdDdsE42FKEfdlkz6
 ```
 
+You can also use these commands to enable and disable your account for receiving Grain distributions.
+```
+/activate
+/deactivate
+```
+
 # Installation
 This bot should work self-hosted (.env) or on repl.it (repl secrets)
 
